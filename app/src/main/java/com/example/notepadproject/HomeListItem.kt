@@ -1,11 +1,34 @@
 package com.example.notepadproject
 
-import android.widget.Button
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Divider
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextOverflow
 import com.example.notepadproject.ui.common.deleteIconButtonWidth
 import com.example.notepadproject.ui.common.dividerNormalThickness
 import com.example.notepadproject.ui.common.noRadius
@@ -14,6 +37,8 @@ import com.example.notepadproject.ui.common.normalRadius
 import com.example.notepadproject.ui.common.normalSpace
 import com.example.notepadproject.ui.common.primaryColor
 import com.example.notepadproject.ui.common.rowHeight
+import com.example.notepadproject.ui.common.secondaryColor
+import com.example.notepadproject.ui.common.smallSpace
 
 enum class RowType {
     TOP, MIDDLE, BOTTOM, SINGLE
@@ -82,7 +107,7 @@ fun HomeListItem(
                     )
                 ) {
                     Icon(
-                        imageVector = Icons.Filled.DeleteForever,
+                        imageVector = Icons.Filled.Home,
                         contentDescription = "delete",
                         modifier = Modifier
                             .align(Alignment.CenterVertically)
@@ -90,6 +115,28 @@ fun HomeListItem(
                 }
             }
 
+            Column(Modifier.weight(1f)) {
+                Column(
+                    horizontalAlignment = Alignment.Start,
+                    modifier = Modifier.padding(normalSpace)
+                ) {
+                    Text(
+                        title,
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = secondaryColor,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
+                    )
+                    Spacer(Modifier.height(smallSpace))
+                    Text(
+                        subTitle,
+                        style = MaterialTheme.typography.bodySmall,
+                        color = secondaryColor,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
+                    )
+                }
+            }
         }
         if (type != RowType.BOTTOM && type != RowType.SINGLE) {
             Divider(

@@ -5,6 +5,7 @@ import androidx.compose.ui.unit.dp
 
 val primaryTextColor = Color(0xFF444444)
 val primaryColor = Color(0xffadf4ff)
+val secondaryColor = Color(0xffadfdfbff)
 val normalSpace = 16.dp
 val smallSpace = 8.dp
 val noSpace = 0.dp
