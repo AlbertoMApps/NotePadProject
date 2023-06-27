@@ -20,15 +20,12 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
+import com.example.notepadproject.ui.common.deleteButtonWidth
 import com.example.notepadproject.ui.common.deleteIconButtonWidth
 import com.example.notepadproject.ui.common.dividerNormalThickness
 import com.example.notepadproject.ui.common.noRadius
@@ -43,6 +40,8 @@ import com.example.notepadproject.ui.common.smallSpace
 enum class RowType {
     TOP, MIDDLE, BOTTOM, SINGLE
 }
+
+var deleteMode = false
 
 @Composable
 fun HomeListItem(
@@ -90,30 +89,8 @@ fun HomeListItem(
                 .fillMaxWidth()
                 .height(rowHeight)
                 .clip(shape)
-                .background(color = primaryColor)
+                .background(color = Color.Transparent)
         ) {
-            var deleteMode by remember { mutableStateOf(false) }
-            if (editMode && !deleteMode) {
-                Button(
-                    onClick = {
-                        deleteMode = !deleteMode
-                    }, modifier = Modifier
-                        .width(deleteIconButtonWidth)
-                        .fillMaxHeight(),
-                    shape = RoundedCornerShape(noRadius),
-                    colors = ButtonDefaults.outlinedButtonColors(
-                        contentColor = Color.Red,
-                        containerColor = primaryColor
-                    )
-                ) {
-                    Icon(
-                        imageVector = Icons.Filled.Home,
-                        contentDescription = "delete",
-                        modifier = Modifier
-                            .align(Alignment.CenterVertically)
-                    )
-                }
-            }
 
             Column(Modifier.weight(1f)) {
                 Column(
@@ -123,7 +100,7 @@ fun HomeListItem(
                     Text(
                         title,
                         style = MaterialTheme.typography.bodyMedium,
-                        color = secondaryColor,
+                        color = Color.Black,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis
                     )
@@ -131,13 +108,68 @@ fun HomeListItem(
                     Text(
                         subTitle,
                         style = MaterialTheme.typography.bodySmall,
-                        color = secondaryColor,
+                        color = Color.Black,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis
                     )
                 }
             }
+
+            when {
+                editMode && !deleteMode -> {
+                    Button(
+                        onClick = {
+                            deleteMode = !deleteMode
+                        },
+                        modifier = Modifier
+                            .width(deleteIconButtonWidth)
+                            .fillMaxHeight(),
+                        shape = RoundedCornerShape(noRadius),
+                        colors = ButtonDefaults.outlinedButtonColors(
+                            contentColor = primaryColor,
+                            containerColor = secondaryColor
+                        )
+                    ) {
+                        Icon(
+                            imageVector = Icons.Filled.Home,
+                            contentDescription = "delete",
+                            modifier = Modifier
+                                .align(Alignment.CenterVertically)
+                        )
+                    }
+                }
+
+                !editMode && !deleteMode -> {
+                    Icon(
+                        imageVector = Icons.Filled.Home,
+                        contentDescription = "forward",
+                        modifier = Modifier.align(Alignment.CenterVertically)
+                    )
+                    Spacer(Modifier.width(normalRadius))
+                }
+
+                editMode && deleteMode -> {
+                    Button(
+                        onClick = {
+                            onDelete()
+                            deleteMode = false
+                        },
+                        modifier = Modifier
+                            .width(deleteButtonWidth)
+                            .fillMaxHeight(),
+                        shape = RoundedCornerShape(noRadius),
+                        colors = ButtonDefaults.outlinedButtonColors(
+                            contentColor = Color.White,
+                            containerColor = Color.Red
+                        )
+                    ) {
+                        Text("Delete")
+                    }
+                }
+            }
+
         }
+
         if (type != RowType.BOTTOM && type != RowType.SINGLE) {
             Divider(
                 modifier = Modifier

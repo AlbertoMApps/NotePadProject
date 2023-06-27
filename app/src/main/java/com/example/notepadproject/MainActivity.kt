@@ -6,7 +6,6 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -22,25 +21,39 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Greeting("Android")
+                    HomeListItem("Daily notes", "06/23", RowType.SINGLE, false, {}, {})
                 }
             }
         }
     }
 }
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
 @Preview(showBackground = true)
 @Composable
-fun GreetingPreview() {
-    NotepadProjectTheme {
-        Greeting("Android")
-    }
+fun TestSingle() {
+    HomeListItem("Daily Notes", "06/23", RowType.SINGLE, false, {}, {})
+}
+
+@Preview
+@Composable
+fun TestTop() {
+    HomeListItem("Daily Notes", "06/23", RowType.TOP, false, {}, {})
+}
+
+@Preview
+@Composable
+fun TestMiddle() {
+    HomeListItem("Daily Notes", "06/23", RowType.MIDDLE, false, {}, {})
+}
+
+@Preview
+@Composable
+fun TestBottom() {
+    HomeListItem("Daily Notes", "06/23", RowType.BOTTOM, false, {}, {})
+}
+
+@Preview
+@Composable
+fun TestBottomEdit() {
+    HomeListItem("Daily Notes", "06/23", RowType.BOTTOM, true, {}, {})
 }
