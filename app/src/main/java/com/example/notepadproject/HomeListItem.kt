@@ -85,11 +85,11 @@ fun HomeListItem(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
                 .clickable(onClick = onClick)
-                .padding(normalSpace, noSpace, normalSpace, noSpace)
+                .padding(normalSpace, normalSpace, normalSpace, normalSpace)
                 .fillMaxWidth()
                 .height(rowHeight)
                 .clip(shape)
-                .background(color = Color.Transparent)
+                .background(color = primaryColor)
         ) {
 
             Column(Modifier.weight(1f)) {

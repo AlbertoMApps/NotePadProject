@@ -4,7 +4,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
 val primaryTextColor = Color(0xFF444444)
-val primaryColor = Color.DarkGray
+val primaryColor = Color.Cyan
 val secondaryColor = Color.LightGray
 val normalSpace = 16.dp
 val smallSpace = 8.dp
