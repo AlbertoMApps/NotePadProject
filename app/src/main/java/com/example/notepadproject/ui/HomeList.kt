@@ -17,7 +17,7 @@ fun HomeList(
         when (items.size) {
             1 -> items.first().let {
                 HomeListItem(
-                    it.name, it.dateCreatedAt, RowType.SINGLE, editMode,
+                    it.name, it.message, it.dateCreatedAt, RowType.SINGLE, editMode,
                     { clickItemHandler(0) },
                     { deleteItemHandler(0) }
                 )
@@ -31,7 +31,7 @@ fun HomeList(
                         else -> RowType.MIDDLE
                     }
                     HomeListItem(
-                        data.name, data.dateCreatedAt, rowType, editMode,
+                        data.name, data.message, data.dateCreatedAt, rowType, editMode,
                         { clickItemHandler(index) },
                         { deleteItemHandler(index) }
                     )

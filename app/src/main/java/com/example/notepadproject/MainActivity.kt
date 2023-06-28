@@ -23,7 +23,14 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    HomeListItem("Daily notes", "06/23", RowType.SINGLE, false, {}, {})
+                    HomeListItem(
+                        "Daily notes",
+                        "First message",
+                        "06/23",
+                        RowType.SINGLE,
+                        false,
+                        {},
+                        {})
                 }
             }
         }
@@ -33,30 +40,30 @@ class MainActivity : ComponentActivity() {
 @Preview(showBackground = true)
 @Composable
 fun TestSingle() {
-    HomeListItem("Daily Notes", "06/23", RowType.SINGLE, false, {}, {})
+    HomeListItem("Daily Notes", "First message", "06/23", RowType.SINGLE, false, {}, {})
 }
 
 @Preview
 @Composable
 fun TestTop() {
-    HomeListItem("Daily Notes", "06/23", RowType.TOP, false, {}, {})
+    HomeListItem("Daily Notes", "First message", "06/23", RowType.TOP, false, {}, {})
 }
 
 @Preview
 @Composable
 fun TestMiddle() {
-    HomeListItem("Daily Notes", "06/23", RowType.MIDDLE, false, {}, {})
+    HomeListItem("Daily Notes", "First message", "06/23", RowType.MIDDLE, false, {}, {})
 }
 
 @Preview
 @Composable
 fun TestBottom() {
-    HomeListItem("Daily Notes", "06/23", RowType.BOTTOM, false, {}, {})
+    HomeListItem("Daily Notes", "First message", "06/23", RowType.BOTTOM, false, {}, {})
 }
 
 @Preview
 @Composable
 fun TestBottomEdit() {
-    HomeListItem("Daily Notes", "06/23", RowType.BOTTOM, true, {}, {})
+    HomeListItem("Daily Notes", "First message", "06/23", RowType.BOTTOM, true, {}, {})
 }
 

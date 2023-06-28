@@ -41,12 +41,11 @@ enum class RowType {
     TOP, MIDDLE, BOTTOM, SINGLE
 }
 
-var deleteMode = false
-
 @Composable
 fun HomeListItem(
     title: String,
-    subTitle: String,
+    message: String,
+    createdDate: String,
     type: RowType,
     editMode: Boolean = false,
     onClick: () -> Unit,
@@ -106,7 +105,15 @@ fun HomeListItem(
                     )
                     Spacer(Modifier.height(smallSpace))
                     Text(
-                        subTitle,
+                        message,
+                        style = MaterialTheme.typography.bodySmall,
+                        color = Color.Black,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
+                    )
+                    Spacer(Modifier.height(smallSpace))
+                    Text(
+                        createdDate,
                         style = MaterialTheme.typography.bodySmall,
                         color = Color.Black,
                         maxLines = 1,
@@ -115,6 +122,7 @@ fun HomeListItem(
                 }
             }
 
+            var deleteMode = false
             when {
                 editMode && !deleteMode -> {
                     Button(

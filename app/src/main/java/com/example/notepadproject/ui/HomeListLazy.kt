@@ -18,7 +18,7 @@ fun HomeListLazy(
             1 -> itemsSource.first().let {
                 item {
                     HomeListItem(
-                        it.name, it.dateCreatedAt, RowType.SINGLE, editMode,
+                        it.name, it.message, it.dateCreatedAt, RowType.SINGLE, editMode,
                         { clickItemHandler(0) },
                         { deleteItemHandler(0) }
                     )
@@ -33,7 +33,7 @@ fun HomeListLazy(
                         else -> RowType.MIDDLE
                     }
                     HomeListItem(
-                        item.name, item.dateCreatedAt, rowType, editMode,
+                        item.name, item.message, item.dateCreatedAt, rowType, editMode,
                         { clickItemHandler(index) },
                         { deleteItemHandler(index) }
                     )
