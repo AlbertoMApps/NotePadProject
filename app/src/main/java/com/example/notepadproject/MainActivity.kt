@@ -9,6 +9,8 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.notepadproject.ui.HomeListItem
+import com.example.notepadproject.ui.RowType
 import com.example.notepadproject.ui.theme.NotepadProjectTheme
 
 class MainActivity : ComponentActivity() {
@@ -57,3 +59,4 @@ fun TestBottom() {
 fun TestBottomEdit() {
     HomeListItem("Daily Notes", "06/23", RowType.BOTTOM, true, {}, {})
 }
+
