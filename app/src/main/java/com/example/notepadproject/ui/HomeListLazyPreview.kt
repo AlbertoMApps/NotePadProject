@@ -32,7 +32,7 @@ fun ListTest() {
             }
             Spacer(Modifier.weight(1f))
             NiceButton(title = "Add") {
-                data.add(Note("Test ${data.size + 1}", "", "06/2023"))
+                data.add(Note("Test note added: ${data.size + 1}", "", "06/2023"))
             }
         }
         Row(Modifier.padding(16.dp)) {
