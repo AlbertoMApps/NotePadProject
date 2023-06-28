@@ -33,6 +33,7 @@ import com.example.notepadproject.ui.common.noSpace
 import com.example.notepadproject.ui.common.normalRadius
 import com.example.notepadproject.ui.common.normalSpace
 import com.example.notepadproject.ui.common.primaryColor
+import com.example.notepadproject.ui.common.rowHeight
 import com.example.notepadproject.ui.common.secondaryColor
 import com.example.notepadproject.ui.common.smallSpace
 
@@ -85,7 +86,7 @@ fun HomeListItem(
                 .clickable(onClick = onClick)
                 .padding(normalSpace, normalSpace, normalSpace, normalSpace)
                 .fillMaxWidth()
-                .fillMaxHeight()
+                .height(rowHeight)
                 .clip(shape)
                 .background(color = primaryColor)
         ) {
