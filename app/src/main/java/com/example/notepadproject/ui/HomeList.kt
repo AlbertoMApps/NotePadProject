@@ -8,7 +8,7 @@ import com.example.notepadproject.data.Note
 
 @Composable
 fun HomeList(
-    editMode: Boolean,
+    deleteMode: Boolean,
     items: SnapshotStateList<Note>,
     clickItemHandler: (Int) -> Unit,
     deleteItemHandler: (Int) -> Unit
@@ -17,7 +17,7 @@ fun HomeList(
         when (items.size) {
             1 -> items.first().let {
                 HomeListItem(
-                    it.name, it.message, it.dateCreatedAt, RowType.SINGLE, editMode,
+                    it.name, it.message, it.dateCreatedAt, RowType.SINGLE, deleteMode,
                     { clickItemHandler(0) },
                     { deleteItemHandler(0) }
                 )
@@ -31,7 +31,7 @@ fun HomeList(
                         else -> RowType.MIDDLE
                     }
                     HomeListItem(
-                        data.name, data.message, data.dateCreatedAt, rowType, editMode,
+                        data.name, data.message, data.dateCreatedAt, rowType, deleteMode,
                         { clickItemHandler(index) },
                         { deleteItemHandler(index) }
                     )

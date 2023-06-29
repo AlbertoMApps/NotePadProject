@@ -8,7 +8,7 @@ import com.example.notepadproject.data.Note
 
 @Composable
 fun HomeListLazy(
-    editMode: Boolean,
+    deleteMode: Boolean,
     itemsSource: SnapshotStateList<Note>,
     clickItemHandler: (Int) -> Unit,
     deleteItemHandler: (Int) -> Unit
@@ -18,7 +18,7 @@ fun HomeListLazy(
             1 -> itemsSource.first().let {
                 item {
                     HomeListItem(
-                        it.name, it.message, it.dateCreatedAt, RowType.SINGLE, editMode,
+                        it.name, it.message, it.dateCreatedAt, RowType.SINGLE, deleteMode,
                         { clickItemHandler(0) },
                         { deleteItemHandler(0) }
                     )
@@ -33,7 +33,7 @@ fun HomeListLazy(
                         else -> RowType.MIDDLE
                     }
                     HomeListItem(
-                        item.name, item.message, item.dateCreatedAt, rowType, editMode,
+                        item.name, item.message, item.dateCreatedAt, rowType, deleteMode,
                         { clickItemHandler(index) },
                         { deleteItemHandler(index) }
                     )

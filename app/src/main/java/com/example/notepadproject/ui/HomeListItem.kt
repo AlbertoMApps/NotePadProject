@@ -9,9 +9,11 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -24,17 +26,21 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
+import com.example.notepadproject.R
+import com.example.notepadproject.ui.RowType.BOTTOM
+import com.example.notepadproject.ui.RowType.SINGLE
+import com.example.notepadproject.ui.RowType.TOP
 import com.example.notepadproject.ui.common.deleteButtonWidth
-import com.example.notepadproject.ui.common.deleteIconButtonWidth
 import com.example.notepadproject.ui.common.dividerNormalThickness
+import com.example.notepadproject.ui.common.iconSize
 import com.example.notepadproject.ui.common.noRadius
 import com.example.notepadproject.ui.common.noSpace
 import com.example.notepadproject.ui.common.normalRadius
 import com.example.notepadproject.ui.common.normalSpace
 import com.example.notepadproject.ui.common.primaryColor
 import com.example.notepadproject.ui.common.rowHeight
-import com.example.notepadproject.ui.common.secondaryColor
 import com.example.notepadproject.ui.common.smallSpace
 
 enum class RowType {
@@ -47,37 +53,11 @@ fun HomeListItem(
     message: String,
     createdDate: String,
     type: RowType,
-    editMode: Boolean = false,
+    deleteMode: Boolean = false,
     onClick: () -> Unit,
     onDelete: () -> Unit
 ) {
-    val shape = when (type) {
-        RowType.TOP -> {
-            RoundedCornerShape(normalRadius, normalRadius)
-        }
-
-        RowType.BOTTOM -> {
-            RoundedCornerShape(
-                noRadius,
-                noRadius,
-                normalRadius,
-                normalRadius
-            )
-        }
-
-        RowType.SINGLE -> {
-            RoundedCornerShape(
-                normalRadius,
-                normalRadius,
-                normalRadius,
-                normalRadius
-            )
-        }
-
-        else -> {
-            RoundedCornerShape(noRadius)
-        }
-    }
+    val shape = getRowShape(type)
 
     Column {
         Row(
@@ -122,45 +102,23 @@ fun HomeListItem(
                 }
             }
 
-            var deleteMode = false
             when {
-                editMode && !deleteMode -> {
-                    Button(
-                        onClick = {
-                            deleteMode = !deleteMode
-                        },
-                        modifier = Modifier
-                            .width(deleteIconButtonWidth)
-                            .fillMaxHeight(),
-                        shape = RoundedCornerShape(noRadius),
-                        colors = ButtonDefaults.outlinedButtonColors(
-                            contentColor = primaryColor,
-                            containerColor = secondaryColor
-                        )
-                    ) {
-                        Icon(
-                            imageVector = Icons.Filled.Home,
-                            contentDescription = "delete",
-                            modifier = Modifier
-                                .align(Alignment.CenterVertically)
-                        )
-                    }
-                }
-
-                !editMode && !deleteMode -> {
+                !deleteMode -> {
                     Icon(
                         imageVector = Icons.Filled.Home,
-                        contentDescription = "forward",
-                        modifier = Modifier.align(Alignment.CenterVertically)
+                        modifier = Modifier
+                            .size(iconSize)
+                            .align(Alignment.CenterVertically),
+                        contentDescription = stringResource(id = R.string.forward),
+                        tint = Color.Unspecified
                     )
                     Spacer(Modifier.width(normalRadius))
                 }
 
-                editMode && deleteMode -> {
+                else -> {
                     Button(
                         onClick = {
                             onDelete()
-                            deleteMode = false
                         },
                         modifier = Modifier
                             .width(deleteButtonWidth)
@@ -171,14 +129,21 @@ fun HomeListItem(
                             containerColor = Color.Red
                         )
                     ) {
-                        Text("Delete")
+                        Icon(
+                            imageVector = Icons.Filled.Delete,
+                            modifier = Modifier
+                                .size(iconSize)
+                                .align(Alignment.CenterVertically),
+                            contentDescription = stringResource(id = R.string.delete_note),
+                            tint = Color.Unspecified
+                        )
                     }
                 }
             }
 
         }
 
-        if (type != RowType.BOTTOM && type != RowType.SINGLE) {
+        if (type != BOTTOM && type != SINGLE) {
             Divider(
                 modifier = Modifier
                     .padding(normalSpace, noSpace, normalSpace, noSpace),
@@ -188,4 +153,32 @@ fun HomeListItem(
         }
     }
 
+}
+
+fun getRowShape(type: RowType): RoundedCornerShape = when (type) {
+    TOP -> {
+        RoundedCornerShape(normalRadius, normalRadius)
+    }
+
+    BOTTOM -> {
+        RoundedCornerShape(
+            noRadius,
+            noRadius,
+            normalRadius,
+            normalRadius
+        )
+    }
+
+    SINGLE -> {
+        RoundedCornerShape(
+            normalRadius,
+            normalRadius,
+            normalRadius,
+            normalRadius
+        )
+    }
+
+    else -> {
+        RoundedCornerShape(noRadius)
+    }
 }

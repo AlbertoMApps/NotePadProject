@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">NotepadProject</string>
+    <string name="add_note">Add</string>
+    <string name="delete_note">Delete</string>
+    <string name="untitled_note">Untitled note:</string>
+    <string name="forward">forward</string>
+
 </resources>
