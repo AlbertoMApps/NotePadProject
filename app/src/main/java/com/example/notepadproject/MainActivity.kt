@@ -1,6 +1,5 @@
 package com.example.notepadproject
 
-import android.content.Context
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -16,6 +15,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.ViewModelProvider
 import com.example.notepadproject.data.Note
 import com.example.notepadproject.ui.HomeListItem
 import com.example.notepadproject.ui.HomeListLazy
@@ -23,31 +23,45 @@ import com.example.notepadproject.ui.RowType
 import com.example.notepadproject.ui.common.NiceButton
 import com.example.notepadproject.ui.common.normalPadding
 import com.example.notepadproject.ui.theme.NotepadProjectTheme
+import com.example.notepadproject.viewmodels.NoteViewModel
 import java.text.SimpleDateFormat
 import java.util.Date
 
 class MainActivity : ComponentActivity() {
+
+    lateinit var viewModel: NoteViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // initializing our view model.
+        viewModel = ViewModelProvider(
+            this,
+            ViewModelProvider.AndroidViewModelFactory.getInstance(application)
+        )[NoteViewModel::class.java]
+
         setContent {
-            initUI(baseContext)
+            initUI(viewModel)
         }
+
     }
 }
 
 @Composable
-private fun initUI(context: Context) {
+private fun initUI(viewModel: NoteViewModel) {
     NotepadProjectTheme {
         // A surface container using the 'background' color from the theme
         Surface(
             modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background
         ) {
-            val data = remember {//This will need to come from a view model in the future.
-                mutableStateListOf<Note>(
-                    Note("My NotepadProject Preview", "", "06/2023"),
-                    Note("First title note", "First message note", "06/2023")
-                )
-            }//This will get replaced by Note's room DB table
+            var data = mutableStateListOf<Note>()
+            if (viewModel.getAllNotes()?.isNotEmpty() == true) {
+                data = remember {
+                    mutableStateListOf<Note>(
+                        Note("My NotepadProject Preview", "", "06/2023"),
+                        Note("First title note", "First message note", "06/2023")
+                    )
+                }
+            }
 
             Column {
                 Row(Modifier.padding(normalPadding)) {
