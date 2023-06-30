@@ -3,15 +3,14 @@ package com.example.notepadproject.ui
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.snapshots.SnapshotStateList
 import com.example.notepadproject.data.Note
 
 @Composable
 fun HomeListLazy(
     deleteMode: Boolean,
-    itemsSource: SnapshotStateList<Note>,
-    clickItemHandler: (Int) -> Unit,
-    deleteItemHandler: (Int) -> Unit
+    itemsSource: ArrayList<Note>,
+    clickItemHandler: (Note) -> Unit,
+    deleteItemHandler: (Note) -> Unit
 ) {
     LazyColumn {
         when (itemsSource.size) {
@@ -19,8 +18,8 @@ fun HomeListLazy(
                 item {
                     HomeListItem(
                         it.name, it.message, it.dateCreatedAt, RowType.SINGLE, deleteMode,
-                        { clickItemHandler(0) },
-                        { deleteItemHandler(0) }
+                        { clickItemHandler(it) },
+                        { deleteItemHandler(it) }
                     )
                 }
             }
@@ -34,8 +33,8 @@ fun HomeListLazy(
                     }
                     HomeListItem(
                         item.name, item.message, item.dateCreatedAt, rowType, deleteMode,
-                        { clickItemHandler(index) },
-                        { deleteItemHandler(index) }
+                        { clickItemHandler(item) },
+                        { deleteItemHandler(item) }
                     )
                 }
             }

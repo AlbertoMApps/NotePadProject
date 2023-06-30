@@ -2,14 +2,13 @@ package com.example.notepadproject.ui
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.snapshots.SnapshotStateList
 import com.example.notepadproject.data.Note
 
 
 @Composable
 fun HomeList(
     deleteMode: Boolean,
-    items: SnapshotStateList<Note>,
+    items: ArrayList<Note>,
     clickItemHandler: (Int) -> Unit,
     deleteItemHandler: (Int) -> Unit
 ) {

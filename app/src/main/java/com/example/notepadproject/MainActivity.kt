@@ -10,8 +10,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -53,20 +51,10 @@ private fun initUI(viewModel: NoteViewModel) {
         Surface(
             modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background
         ) {
-            var data = mutableStateListOf<Note>()
-            if (viewModel.getAllNotes()?.isNotEmpty() == true) {
-                data = remember {
-                    mutableStateListOf<Note>(
-                        Note("My NotepadProject Preview", "", "06/2023"),
-                        Note("First title note", "First message note", "06/2023")
-                    )
-                }
-            }
-
             Column {
                 Row(Modifier.padding(normalPadding)) {
                     NiceButton(title = stringResource(R.string.add_note)) {
-                        data.add(
+                        viewModel.addNote(
                             Note(
                                 name = "Untitled note",
                                 message = "",
@@ -80,11 +68,11 @@ private fun initUI(viewModel: NoteViewModel) {
                 Row(Modifier.padding(normalPadding)) {
                     HomeListLazy(
                         deleteMode = true,
-                        itemsSource = data,
-                        clickItemHandler = {},
-                        deleteItemHandler = { index ->
-                            data.removeAt(index)
-                        })
+                        itemsSource = viewModel.getAllNotes(),
+                        clickItemHandler = {}
+                    ) { note ->
+                        viewModel.deleteNote(note)
+                    }
                 }
             }
         }
