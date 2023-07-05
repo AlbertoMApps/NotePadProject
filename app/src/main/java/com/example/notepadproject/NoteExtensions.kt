@@ -1,6 +1,6 @@
 package com.example.notepadproject
 
-import com.example.notepadproject.data.Note
+import com.example.notepadproject.data.model.Note
 import com.example.notepadproject.data.database.entities.NotesTable
 
 fun Note.mapToTableNote() =

@@ -2,7 +2,7 @@ package com.example.notepadproject.ui
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
-import com.example.notepadproject.data.Note
+import com.example.notepadproject.data.model.Note
 
 
 @Composable

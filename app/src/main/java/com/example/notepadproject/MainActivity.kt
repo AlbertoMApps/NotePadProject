@@ -13,8 +13,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.lifecycle.ViewModelProvider
-import com.example.notepadproject.data.Note
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.notepadproject.data.model.Note
 import com.example.notepadproject.ui.HomeListItem
 import com.example.notepadproject.ui.HomeListLazy
 import com.example.notepadproject.ui.RowType
@@ -22,30 +22,24 @@ import com.example.notepadproject.ui.common.NiceButton
 import com.example.notepadproject.ui.common.normalPadding
 import com.example.notepadproject.ui.theme.NotepadProjectTheme
 import com.example.notepadproject.viewmodels.NoteViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
 import java.util.Date
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-
-    lateinit var viewModel: NoteViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // initializing our view model.
-        viewModel = ViewModelProvider(
-            this,
-            ViewModelProvider.AndroidViewModelFactory.getInstance(application)
-        )[NoteViewModel::class.java]
-
         setContent {
-            initUI(viewModel)
+            InitUI()
         }
 
     }
 }
 
 @Composable
-private fun initUI(viewModel: NoteViewModel) {
+private fun InitUI(viewModel: NoteViewModel = hiltViewModel()) {
     NotepadProjectTheme {
         // A surface container using the 'background' color from the theme
         Surface(
@@ -68,7 +62,8 @@ private fun initUI(viewModel: NoteViewModel) {
                 Row(Modifier.padding(normalPadding)) {
                     HomeListLazy(
                         deleteMode = true,
-                        itemsSource = viewModel.getAllNotes(),
+                        itemsSource = (viewModel.getAllNotes()
+                            .ifEmpty { listOf<Note>() }) as ArrayList<Note>,
                         clickItemHandler = {}
                     ) { note ->
                         viewModel.deleteNote(note)

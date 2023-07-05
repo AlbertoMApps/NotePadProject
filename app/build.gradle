@@ -2,16 +2,17 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
 }
 
 android {
     namespace 'com.example.notepadproject'
-    compileSdk 33
+    compileSdk 34
 
     defaultConfig {
         applicationId "com.example.notepadproject"
         minSdk 23
-        targetSdk 33
+        targetSdk 34
         versionCode 1
         versionName "1.0"
 
@@ -54,21 +55,25 @@ dependencies {
     implementation 'androidx.core:core-ktx:1.10.1'
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.9.0'
-
-    //Kotlin
-    implementation platform("org.jetbrains.kotlin:kotlin-bom:$kotlin_version")
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.1'
 
     //Jetpack compose
     implementation "androidx.activity:activity-compose:1.7.2"
-    implementation 'androidx.compose.foundation:foundation:1.4.3'
+    implementation "androidx.compose.ui:ui:$compose_version"
+    implementation "androidx.compose.ui:ui-tooling-preview:$compose_version"
+    implementation "androidx.compose.foundation:foundation:$compose_version"
     implementation 'androidx.compose.material3:material3:1.1.1'
     implementation("androidx.compose.material3:material3-window-size-class:1.1.1")
-    implementation 'androidx.compose.ui:ui:1.4.3'
-    implementation 'androidx.compose.ui:ui-tooling-preview:1.4.3'
+    implementation "androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1"
+    implementation "androidx.navigation:navigation-compose:2.7.0-beta02"
+    implementation "com.google.accompanist:accompanist-flowlayout:0.17.0"
+
+    //Dagger - Hilt
+    implementation "com.google.dagger:hilt-android:2.44"
+    kapt "com.google.dagger:hilt-android-compiler:2.44"
 
     // Room components
-    implementation "androidx.room:room-ktx:$room_version"
+    implementation "androidx.room:room-runtime:$room_version"
     annotationProcessor "androidx.room:room-compiler:$room_version"
 
     // optional - Kotlin Extensions and Coroutines support for Room
@@ -80,18 +85,13 @@ dependencies {
     // optional - RxJava3 support for Room
     implementation "androidx.room:room-rxjava3:$room_version"
 
-    // Lifecycle components
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
-    implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"
-
     //Tests
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
-    androidTestImplementation 'androidx.compose.ui:ui-test-junit4:1.4.3'
-    debugImplementation 'androidx.compose.ui:ui-tooling'
-    debugImplementation 'androidx.compose.ui:ui-test-manifest'
+    androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
+    debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
+    debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_version"
     androidTestImplementation "androidx.room:room-testing:$room_version"
 
 }
