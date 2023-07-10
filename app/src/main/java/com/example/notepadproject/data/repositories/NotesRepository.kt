@@ -7,7 +7,7 @@ import javax.inject.Inject
 
 class NotesRepository @Inject constructor(private val notesDao: NotesDao) : INotesRepository {
 
-    val allNotes: LiveData<List<NotesTable>> = notesDao.getAllNotes()
+    override val allNotes: LiveData<List<NotesTable>> = notesDao.getAllNotes()
 
     override suspend fun insert(note: NotesTable) {
         notesDao.insert(note)

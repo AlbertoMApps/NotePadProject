@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.notepadproject.data.database.entities.NotesTable
 import com.example.notepadproject.data.model.Note
-import com.example.notepadproject.data.repositories.NotesRepository
+import com.example.notepadproject.data.repositories.INotesRepository
 import com.example.notepadproject.mapToNote
 import com.example.notepadproject.mapToTableNote
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,7 +16,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class NoteViewModel @Inject constructor(
-    private val notesRepository: NotesRepository
+    private val notesRepository: INotesRepository
 ) : ViewModel() {
 
     private val allTableNotes: LiveData<List<NotesTable>> = notesRepository.allNotes

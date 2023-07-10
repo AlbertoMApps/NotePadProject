@@ -1,10 +1,12 @@
 package com.example.notepadproject.di
 
+import android.app.Application
+import androidx.lifecycle.ViewModel
 import androidx.room.Room
-import com.example.notepadproject.NotepadProjectApplication
 import com.example.notepadproject.data.database.NotesDatabase
 import com.example.notepadproject.data.repositories.INotesRepository
 import com.example.notepadproject.data.repositories.NotesRepository
+import com.example.notepadproject.viewmodels.NoteViewModel
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -17,6 +19,11 @@ object NotesModule {
 
     @Provides
     @Singleton
+    fun provideNoteViewModel(repository: INotesRepository): ViewModel =
+        NoteViewModel(repository)
+
+    @Provides
+    @Singleton
     fun provideINotesRepository(
         db: NotesDatabase
     ): INotesRepository = NotesRepository(
@@ -25,7 +32,7 @@ object NotesModule {
 
     @Provides
     @Singleton
-    fun provideINotesDatabase(app: NotepadProjectApplication): NotesDatabase =
+    fun provideINotesDatabase(app: Application): NotesDatabase =
         Room.databaseBuilder(
             app,
             NotesDatabase::class.java,

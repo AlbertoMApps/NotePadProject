@@ -40,6 +40,16 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 private fun InitUI(viewModel: NoteViewModel = hiltViewModel()) {
+    val newNote = Note(
+        name = "Untitled note",
+        message = "",
+        dateCreatedAt = SimpleDateFormat("dd MMM yyyy").format(
+            Date()
+        )
+    )
+    viewModel.addNote(
+        newNote
+    )
     NotepadProjectTheme {
         // A surface container using the 'background' color from the theme
         Surface(
@@ -49,21 +59,14 @@ private fun InitUI(viewModel: NoteViewModel = hiltViewModel()) {
                 Row(Modifier.padding(normalPadding)) {
                     NiceButton(title = stringResource(R.string.add_note)) {
                         viewModel.addNote(
-                            Note(
-                                name = "Untitled note",
-                                message = "",
-                                dateCreatedAt = SimpleDateFormat("dd MMM yyyy").format(
-                                    Date()
-                                )
-                            )
+                            newNote
                         )
                     }
                 }
                 Row(Modifier.padding(normalPadding)) {
                     HomeListLazy(
                         deleteMode = true,
-                        itemsSource = (viewModel.getAllNotes()
-                            .ifEmpty { listOf<Note>() }) as ArrayList<Note>,
+                        itemsSource = (viewModel.getAllNotes()),
                         clickItemHandler = {}
                     ) { note ->
                         viewModel.deleteNote(note)
