@@ -1,15 +1,16 @@
 package com.example.notepadproject.viewmodels
 
-import androidx.lifecycle.LiveData
+import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.notepadproject.data.database.entities.NotesTable
 import com.example.notepadproject.data.model.Note
 import com.example.notepadproject.data.repositories.INotesRepository
-import com.example.notepadproject.mapToNote
 import com.example.notepadproject.mapToTableNote
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -19,13 +20,18 @@ class NoteViewModel @Inject constructor(
     private val notesRepository: INotesRepository
 ) : ViewModel() {
 
-    private val allTableNotes: LiveData<List<NotesTable>> = notesRepository.allNotes
+    private val _state = mutableStateOf(NotesState())
+    val state: State<NotesState> = _state
 
-    // return all notes
-    fun getAllNotes(): ArrayList<Note> {
-        val allNotes: ArrayList<Note> = arrayListOf()
-        allTableNotes.value?.forEach { allNotes.add(it.mapToNote()) }
-        return allNotes
+    // return all notes with flow
+    fun getAllNotes() {
+        viewModelScope.launch {
+            notesRepository.getAllNotes().onEach {
+                _state.value = NotesState(
+                    list = it
+                )
+            }.launchIn(this)
+        }
     }
 
     // on below line we are creating a new method for deleting a note. In this we are

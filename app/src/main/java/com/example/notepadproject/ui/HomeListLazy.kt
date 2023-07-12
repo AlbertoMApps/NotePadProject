@@ -8,7 +8,7 @@ import com.example.notepadproject.data.model.Note
 @Composable
 fun HomeListLazy(
     deleteMode: Boolean,
-    itemsSource: ArrayList<Note>,
+    itemsSource: List<Note>,
     clickItemHandler: (Note) -> Unit,
     deleteItemHandler: (Note) -> Unit
 ) {

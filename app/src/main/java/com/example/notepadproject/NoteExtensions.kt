@@ -1,10 +1,10 @@
 package com.example.notepadproject
 
-import com.example.notepadproject.data.model.Note
 import com.example.notepadproject.data.database.entities.NotesTable
+import com.example.notepadproject.data.model.Note
 
 fun Note.mapToTableNote() =
-    NotesTable(name, message, dateCreatedAt)
+    NotesTable(name = name, message = message, dateCreatedAt = dateCreatedAt)
 
 fun NotesTable.mapToNote() =
-    Note(name, message, dateCreatedAt)
+    Note(name = name, message = message, dateCreatedAt = dateCreatedAt)

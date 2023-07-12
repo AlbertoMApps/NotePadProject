@@ -50,6 +50,7 @@ private fun InitUI(viewModel: NoteViewModel = hiltViewModel()) {
     viewModel.addNote(
         newNote
     )
+    val noteViewModelState = viewModel.state.value
     NotepadProjectTheme {
         // A surface container using the 'background' color from the theme
         Surface(
@@ -66,7 +67,7 @@ private fun InitUI(viewModel: NoteViewModel = hiltViewModel()) {
                 Row(Modifier.padding(normalPadding)) {
                     HomeListLazy(
                         deleteMode = true,
-                        itemsSource = (viewModel.getAllNotes()),
+                        itemsSource = (noteViewModelState.list),
                         clickItemHandler = {}
                     ) { note ->
                         viewModel.deleteNote(note)

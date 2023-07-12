@@ -44,8 +44,8 @@ fun ListTest() {
             HomeListLazy(
                 deleteMode = deleteMode,
                 itemsSource = data,
-                clickItemHandler = {},
-                deleteItemHandler = { data.remove(it) })
+                clickItemHandler = {}
+            ) { data.remove(it) }
         }
     }
 
