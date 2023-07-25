@@ -1,4 +1,4 @@
-package com.example.notepadproject.ui
+package com.example.notepadproject.ui.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -30,9 +30,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import com.example.notepadproject.R
-import com.example.notepadproject.ui.RowType.BOTTOM
-import com.example.notepadproject.ui.RowType.SINGLE
-import com.example.notepadproject.ui.RowType.TOP
+import com.example.notepadproject.ui.screens.RowType.BOTTOM
+import com.example.notepadproject.ui.screens.RowType.SINGLE
+import com.example.notepadproject.ui.screens.RowType.TOP
 import com.example.notepadproject.ui.common.deleteButtonWidth
 import com.example.notepadproject.ui.common.dividerNormalThickness
 import com.example.notepadproject.ui.common.iconSize

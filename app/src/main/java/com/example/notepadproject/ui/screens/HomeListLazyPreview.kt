@@ -1,4 +1,4 @@
-package com.example.notepadproject.ui
+package com.example.notepadproject.ui.screens
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row

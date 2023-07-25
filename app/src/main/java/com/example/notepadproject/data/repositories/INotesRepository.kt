@@ -1,12 +1,12 @@
 package com.example.notepadproject.data.repositories
 
-import com.example.notepadproject.data.database.entities.NotesTable
 import com.example.notepadproject.data.model.Note
+import com.example.notepadproject.presentation.Resource
 import kotlinx.coroutines.flow.Flow
 
 interface INotesRepository {
-    suspend fun getAllNotes(): Flow<List<Note>>
-    suspend fun insert(note: NotesTable)
-    suspend fun delete(note: NotesTable)
-    suspend fun update(note: NotesTable)
+    fun getAllNotes(): Flow<Resource<List<Note>>>
+    fun insert(note: Note): Flow<Resource<Note>>
+    suspend fun delete(note: Note)
+    suspend fun update(note: Note)
 }

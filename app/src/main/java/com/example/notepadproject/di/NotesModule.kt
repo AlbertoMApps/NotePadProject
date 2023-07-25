@@ -6,7 +6,7 @@ import androidx.room.Room
 import com.example.notepadproject.data.database.NotesDatabase
 import com.example.notepadproject.data.repositories.INotesRepository
 import com.example.notepadproject.data.repositories.NotesRepository
-import com.example.notepadproject.viewmodels.NoteViewModel
+import com.example.notepadproject.presentation.NoteViewModel
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

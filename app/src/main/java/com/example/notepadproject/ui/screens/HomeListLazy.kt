@@ -1,4 +1,4 @@
-package com.example.notepadproject.ui
+package com.example.notepadproject.ui.screens
 
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -17,7 +17,11 @@ fun HomeListLazy(
             1 -> itemsSource.first().let {
                 item {
                     HomeListItem(
-                        it.name, it.message, it.dateCreatedAt, RowType.SINGLE, deleteMode,
+                        it.name ?: "",
+                        it.message ?: "",
+                        it.dateCreatedAt ?: "",
+                        RowType.SINGLE,
+                        deleteMode,
                         { clickItemHandler(it) },
                         { deleteItemHandler(it) }
                     )
@@ -32,7 +36,11 @@ fun HomeListLazy(
                         else -> RowType.MIDDLE
                     }
                     HomeListItem(
-                        item.name, item.message, item.dateCreatedAt, rowType, deleteMode,
+                        item.name ?: "",
+                        item.message ?: "",
+                        item.dateCreatedAt ?: "",
+                        rowType,
+                        deleteMode,
                         { clickItemHandler(item) },
                         { deleteItemHandler(item) }
                     )

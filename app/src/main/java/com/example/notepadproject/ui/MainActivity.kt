@@ -1,4 +1,4 @@
-package com.example.notepadproject
+package com.example.notepadproject.ui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -14,14 +14,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.notepadproject.R
 import com.example.notepadproject.data.model.Note
-import com.example.notepadproject.ui.HomeListItem
-import com.example.notepadproject.ui.HomeListLazy
-import com.example.notepadproject.ui.RowType
 import com.example.notepadproject.ui.common.NiceButton
 import com.example.notepadproject.ui.common.normalPadding
+import com.example.notepadproject.ui.screens.HomeListItem
+import com.example.notepadproject.ui.screens.HomeListLazy
+import com.example.notepadproject.ui.screens.RowType
 import com.example.notepadproject.ui.theme.NotepadProjectTheme
-import com.example.notepadproject.viewmodels.NoteViewModel
+import com.example.notepadproject.presentation.NoteViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -32,14 +33,15 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            InitUI()
+            NotepadHomeScreen()
+
         }
 
     }
 }
 
 @Composable
-private fun InitUI(viewModel: NoteViewModel = hiltViewModel()) {
+private fun NotepadHomeScreen(viewModel: NoteViewModel = hiltViewModel()) {
     val newNote = Note(
         name = "Untitled note",
         message = "",

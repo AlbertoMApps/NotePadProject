@@ -13,7 +13,7 @@ import androidx.compose.ui.tooling.preview.Preview
 
 @Preview
 @Composable
-fun TestNiceButton() {
+fun TestNiceButton(width: Int = 100, height: Int = 20) {
     NiceButton(title = "Test Button") { }
 }
 
