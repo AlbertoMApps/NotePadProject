@@ -13,15 +13,15 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.Divider
+import androidx.compose.material.Icon
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Home
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Divider
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -30,9 +30,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import com.example.notepadproject.R
-import com.example.notepadproject.ui.screens.RowType.BOTTOM
-import com.example.notepadproject.ui.screens.RowType.SINGLE
-import com.example.notepadproject.ui.screens.RowType.TOP
 import com.example.notepadproject.ui.common.deleteButtonWidth
 import com.example.notepadproject.ui.common.dividerNormalThickness
 import com.example.notepadproject.ui.common.iconSize
@@ -43,6 +40,9 @@ import com.example.notepadproject.ui.common.normalSpace
 import com.example.notepadproject.ui.common.primaryColor
 import com.example.notepadproject.ui.common.rowHeight
 import com.example.notepadproject.ui.common.smallSpace
+import com.example.notepadproject.ui.screens.RowType.BOTTOM
+import com.example.notepadproject.ui.screens.RowType.SINGLE
+import com.example.notepadproject.ui.screens.RowType.TOP
 
 enum class RowType {
     TOP, MIDDLE, BOTTOM, SINGLE
@@ -82,7 +82,7 @@ fun HomeListItem(
                 ) {
                     Text(
                         title,
-                        style = MaterialTheme.typography.bodyMedium,
+                        style = MaterialTheme.typography.body2,
                         color = Color.Black,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis
@@ -90,7 +90,7 @@ fun HomeListItem(
                     Spacer(Modifier.height(smallSpace))
                     Text(
                         message,
-                        style = MaterialTheme.typography.bodySmall,
+                        style = MaterialTheme.typography.body1,
                         color = Color.Black,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis
@@ -98,7 +98,7 @@ fun HomeListItem(
                     Spacer(Modifier.height(smallSpace))
                     Text(
                         createdDate,
-                        style = MaterialTheme.typography.bodySmall,
+                        style = MaterialTheme.typography.body1,
                         color = Color.Black,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis
@@ -130,7 +130,7 @@ fun HomeListItem(
                         shape = RoundedCornerShape(noRadius),
                         colors = ButtonDefaults.outlinedButtonColors(
                             contentColor = Color.White,
-                            containerColor = Color.Red
+                            backgroundColor = Color.Red
                         )
                     ) {
                         Icon(
