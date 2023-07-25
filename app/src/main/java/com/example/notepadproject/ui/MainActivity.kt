@@ -6,26 +6,27 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.notepadproject.R
-import com.example.notepadproject.data.model.Note
+import com.example.notepadproject.presentation.NoteViewModel
 import com.example.notepadproject.ui.common.NiceButton
+import com.example.notepadproject.ui.common.newNote
 import com.example.notepadproject.ui.common.normalPadding
 import com.example.notepadproject.ui.screens.HomeListItem
 import com.example.notepadproject.ui.screens.HomeListLazy
 import com.example.notepadproject.ui.screens.RowType
 import com.example.notepadproject.ui.theme.NotepadProjectTheme
-import com.example.notepadproject.presentation.NoteViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import java.text.SimpleDateFormat
-import java.util.Date
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -42,17 +43,14 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 private fun NotepadHomeScreen(viewModel: NoteViewModel = hiltViewModel()) {
-    val newNote = Note(
-        name = "Untitled note",
-        message = "",
-        dateCreatedAt = SimpleDateFormat("dd MMM yyyy").format(
-            Date()
-        )
-    )
+
     viewModel.addNote(
         newNote
     )
-    val noteViewModelState = viewModel.state.value
+
+    val notes = viewModel.state.value
+    val errorMessage = notes.errorMessage
+
     NotepadProjectTheme {
         // A surface container using the 'background' color from the theme
         Surface(
@@ -60,19 +58,32 @@ private fun NotepadHomeScreen(viewModel: NoteViewModel = hiltViewModel()) {
         ) {
             Column {
                 Row(Modifier.padding(normalPadding)) {
-                    NiceButton(title = stringResource(R.string.add_note)) {
-                        viewModel.addNote(
-                            newNote
-                        )
-                    }
+                    NiceButton(
+                        title = stringResource(R.string.add_note),
+                        onClick = {
+                            viewModel.addNote(newNote)
+                        }
+                    )
                 }
                 Row(Modifier.padding(normalPadding)) {
                     HomeListLazy(
                         deleteMode = true,
-                        itemsSource = (noteViewModelState.list),
+                        itemsSource = (notes.list),
                         clickItemHandler = {}
                     ) { note ->
                         viewModel.deleteNote(note)
+                    }
+                }
+                if (errorMessage.isNotEmpty()) {
+                    Row(Modifier.padding(normalPadding)) {
+                        Text(
+                            text = errorMessage,
+                            color = MaterialTheme.colorScheme.error,
+                            textAlign = TextAlign.Center,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = normalPadding)
+                        )
                     }
                 }
             }

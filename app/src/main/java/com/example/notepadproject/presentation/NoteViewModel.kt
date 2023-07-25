@@ -39,7 +39,7 @@ class NoteViewModel @Inject constructor(
 
                     else -> {
                         _state.value = NotesState(
-                            errorMessage = result.errorMessage ?: "No note found"
+                            errorMessage = result.errorMessage ?: "No note found or added"
                         )
                     }
                 }
