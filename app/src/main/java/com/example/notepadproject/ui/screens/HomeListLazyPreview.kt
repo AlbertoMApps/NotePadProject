@@ -21,8 +21,8 @@ fun ListTest() {
     val deleteMode = false
     val data = remember {
         arrayListOf<Note>(
-            Note("My NotepadProject Preview", "", "06/2023"),
-            Note("First title note", "First message note", "06/2023")
+            Note(0, "My NotepadProject Preview", "", "06/2023"),
+            Note(0, "First title note", "First message note", "06/2023")
         )
     }
 
@@ -31,6 +31,7 @@ fun ListTest() {
             NiceButton(title = stringResource(id = R.string.add_note)) {
                 data.add(
                     Note(
+                        0,
                         "Test note added: ${data.size + 1}",
                         "",
                         SimpleDateFormat("dd MMM yyyy").format(

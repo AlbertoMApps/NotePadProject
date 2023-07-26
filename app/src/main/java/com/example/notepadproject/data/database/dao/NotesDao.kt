@@ -7,7 +7,7 @@ import com.example.notepadproject.data.database.entities.NotesTable
 interface NotesDao {
 
     // method to get all the entry notes from our db ordered by ascendant.
-    @Query("Select * from notesTable order by id ASC")
+    @Query("SELECT * FROM notesTable order by id ASC")
     suspend fun getAllNotes(): List<NotesTable>
 
     // below is the insert method for
@@ -16,7 +16,7 @@ interface NotesDao {
     suspend fun insert(notes: List<NotesTable>)
 
     // method to delete a note.
-    @Delete
-    suspend fun delete(note: NotesTable)
+    @Query("DELETE FROM notesTable WHERE id = :id")
+    suspend fun delete(id: Int)
 
 }

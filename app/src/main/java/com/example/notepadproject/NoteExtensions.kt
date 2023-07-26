@@ -7,4 +7,4 @@ fun Note.mapToTableNote() =
     NotesTable(name = name ?: "", message = message ?: "", dateCreatedAt = dateCreatedAt ?: "")
 
 fun NotesTable.mapToNote() =
-    Note(name = name, message = message, dateCreatedAt = dateCreatedAt)
+    Note(id = id, name = name, message = message, dateCreatedAt = dateCreatedAt)

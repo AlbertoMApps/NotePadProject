@@ -7,7 +7,6 @@ import androidx.lifecycle.viewModelScope
 import com.example.notepadproject.data.model.Note
 import com.example.notepadproject.data.repositories.INotesRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -25,7 +24,7 @@ class NoteViewModel @Inject constructor(
 
     private var noteJob: Job? = null
 
-    // return all notes with flow
+    // add and return all notes with flow
     fun getAllNotes(notes: List<Note>) {
         noteJob?.cancel()
         noteJob = viewModelScope.launch {
@@ -33,6 +32,13 @@ class NoteViewModel @Inject constructor(
                 when (result) {
                     is Resource.Success -> {
                         _state.value = NotesState(
+                            list = result.data ?: listOf()
+                        )
+                    }
+
+                    is Resource.Loading -> {
+                        _state.value = NotesState(
+                            isLoading = true,
                             list = result.data ?: listOf()
                         )
                     }
@@ -49,10 +55,31 @@ class NoteViewModel @Inject constructor(
 
     // on below line we are creating a new method for deleting a note. In this we are
     // calling a delete method from our repository to delete our note.
-    fun deleteNote(note: Note) {
+    fun deleteNote(noteId: Int?) {
         noteJob?.cancel()
-        noteJob = viewModelScope.launch(Dispatchers.IO) {
-            notesRepository.delete(note)
+        noteJob = viewModelScope.launch {
+            notesRepository.delete(noteId ?: -1).onEach { result ->
+                when (result) {
+                    is Resource.Success -> {
+                        _state.value = NotesState(
+                            list = result.data ?: listOf()
+                        )
+                    }
+
+                    is Resource.Loading -> {
+                        _state.value = NotesState(
+                            isLoading = true,
+                            list = result.data ?: listOf()
+                        )
+                    }
+
+                    else -> {
+                        _state.value = NotesState(
+                            errorMessage = result.errorMessage ?: "No note found or added"
+                        )
+                    }
+                }
+            }.launchIn(this)
         }
     }
 
