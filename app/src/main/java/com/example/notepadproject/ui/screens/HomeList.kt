@@ -1,15 +1,14 @@
-package com.example.notepadproject.ui
+package com.example.notepadproject.ui.screens
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.snapshots.SnapshotStateList
-import com.example.notepadproject.data.Note
+import com.example.notepadproject.data.model.Note
 
 
 @Composable
 fun HomeList(
     deleteMode: Boolean,
-    items: SnapshotStateList<Note>,
+    items: ArrayList<Note>,
     clickItemHandler: (Int) -> Unit,
     deleteItemHandler: (Int) -> Unit
 ) {
@@ -17,7 +16,11 @@ fun HomeList(
         when (items.size) {
             1 -> items.first().let {
                 HomeListItem(
-                    it.name, it.message, it.dateCreatedAt, RowType.SINGLE, deleteMode,
+                    it.name ?: "",
+                    it.message ?: "",
+                    it.dateCreatedAt ?: "",
+                    RowType.SINGLE,
+                    deleteMode,
                     { clickItemHandler(0) },
                     { deleteItemHandler(0) }
                 )
@@ -31,7 +34,11 @@ fun HomeList(
                         else -> RowType.MIDDLE
                     }
                     HomeListItem(
-                        data.name, data.message, data.dateCreatedAt, rowType, deleteMode,
+                        data.name ?: "",
+                        data.message ?: "",
+                        data.dateCreatedAt ?: "",
+                        rowType,
+                        deleteMode,
                         { clickItemHandler(index) },
                         { deleteItemHandler(index) }
                     )

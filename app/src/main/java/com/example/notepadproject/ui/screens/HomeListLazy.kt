@@ -1,26 +1,29 @@
-package com.example.notepadproject.ui
+package com.example.notepadproject.ui.screens
 
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.snapshots.SnapshotStateList
-import com.example.notepadproject.data.Note
+import com.example.notepadproject.data.model.Note
 
 @Composable
 fun HomeListLazy(
     deleteMode: Boolean,
-    itemsSource: SnapshotStateList<Note>,
-    clickItemHandler: (Int) -> Unit,
-    deleteItemHandler: (Int) -> Unit
+    itemsSource: List<Note>,
+    clickItemHandler: (Note) -> Unit,
+    deleteItemHandler: (Note) -> Unit
 ) {
     LazyColumn {
         when (itemsSource.size) {
             1 -> itemsSource.first().let {
                 item {
                     HomeListItem(
-                        it.name, it.message, it.dateCreatedAt, RowType.SINGLE, deleteMode,
-                        { clickItemHandler(0) },
-                        { deleteItemHandler(0) }
+                        it.name ?: "",
+                        it.message ?: "",
+                        it.dateCreatedAt ?: "",
+                        RowType.SINGLE,
+                        deleteMode,
+                        { clickItemHandler(it) },
+                        { deleteItemHandler(it) }
                     )
                 }
             }
@@ -33,9 +36,13 @@ fun HomeListLazy(
                         else -> RowType.MIDDLE
                     }
                     HomeListItem(
-                        item.name, item.message, item.dateCreatedAt, rowType, deleteMode,
-                        { clickItemHandler(index) },
-                        { deleteItemHandler(index) }
+                        item.name ?: "",
+                        item.message ?: "",
+                        item.dateCreatedAt ?: "",
+                        rowType,
+                        deleteMode,
+                        { clickItemHandler(item) },
+                        { deleteItemHandler(item) }
                     )
                 }
             }
