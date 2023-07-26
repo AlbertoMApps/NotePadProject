@@ -11,7 +11,9 @@ import javax.inject.Inject
 
 class NotesRepository @Inject constructor(private val notesDao: NotesDao) : INotesRepository {
 
-    override fun getAllNotes(): Flow<Resource<List<Note>>> = flow {
+    override fun getAllNotes(notes: List<Note>): Flow<Resource<List<Note>>> = flow {
+        emit(Resource.Loading())
+        notesDao.insert(notes.map { it.mapToTableNote() })
         val notes = notesDao.getAllNotes().map { it.mapToNote() }
         if (notes.isEmpty()) {
             emit(Resource.Error(message = "Empty list"))
@@ -20,16 +22,8 @@ class NotesRepository @Inject constructor(private val notesDao: NotesDao) : INot
         }
     }
 
-    override fun insert(note: Note): Flow<Resource<Note>> = flow {
-        notesDao.insert(note.mapToTableNote())
-        getAllNotes()
-    }
-
     override suspend fun delete(note: Note) {
         notesDao.delete(note.mapToTableNote())
     }
 
-    override suspend fun update(note: Note) {
-        notesDao.update(note.mapToTableNote())
-    }
 }

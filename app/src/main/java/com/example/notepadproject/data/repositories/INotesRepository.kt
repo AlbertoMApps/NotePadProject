@@ -5,8 +5,7 @@ import com.example.notepadproject.presentation.Resource
 import kotlinx.coroutines.flow.Flow
 
 interface INotesRepository {
-    fun getAllNotes(): Flow<Resource<List<Note>>>
-    fun insert(note: Note): Flow<Resource<Note>>
+    fun getAllNotes(notes: List<Note>): Flow<Resource<List<Note>>>
     suspend fun delete(note: Note)
-    suspend fun update(note: Note)
+
 }

@@ -35,18 +35,12 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             NotepadHomeScreen()
-
         }
-
     }
 }
 
 @Composable
 private fun NotepadHomeScreen(viewModel: NoteViewModel = hiltViewModel()) {
-
-    viewModel.addNote(
-        newNote
-    )
 
     val notes = viewModel.state.value
     val errorMessage = notes.errorMessage
@@ -61,7 +55,7 @@ private fun NotepadHomeScreen(viewModel: NoteViewModel = hiltViewModel()) {
                     NiceButton(
                         title = stringResource(R.string.add_note),
                         onClick = {
-                            viewModel.addNote(newNote)
+                            viewModel.getAllNotes(listOf(newNote))
                         }
                     )
                 }

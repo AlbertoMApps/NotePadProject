@@ -26,10 +26,10 @@ class NoteViewModel @Inject constructor(
     private var noteJob: Job? = null
 
     // return all notes with flow
-    private fun getAllNotes() {
+    fun getAllNotes(notes: List<Note>) {
         noteJob?.cancel()
         noteJob = viewModelScope.launch {
-            notesRepository.getAllNotes().onEach { result ->
+            notesRepository.getAllNotes(notes).onEach { result ->
                 when (result) {
                     is Resource.Success -> {
                         _state.value = NotesState(
@@ -47,31 +47,12 @@ class NoteViewModel @Inject constructor(
         }
     }
 
-    // on below line we are creating a new method for adding a new note to our database
-    // we are calling a method from our repository to add a new note.
-    fun addNote(note: Note) {
-        noteJob?.cancel()
-        noteJob = viewModelScope.launch(Dispatchers.IO) {
-            notesRepository.insert(note)
-            getAllNotes()
-        }
-    }
-
     // on below line we are creating a new method for deleting a note. In this we are
     // calling a delete method from our repository to delete our note.
     fun deleteNote(note: Note) {
         noteJob?.cancel()
         noteJob = viewModelScope.launch(Dispatchers.IO) {
             notesRepository.delete(note)
-        }
-    }
-
-    // on below line we are creating a new method for updating a note. In this we are
-    // calling a update method from our repository to update our note.
-    fun updateNote(note: Note) {
-        noteJob?.cancel()
-        noteJob = viewModelScope.launch(Dispatchers.IO) {
-            notesRepository.update(note)
         }
     }
 
